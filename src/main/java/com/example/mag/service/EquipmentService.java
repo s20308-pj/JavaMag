@@ -1,11 +1,13 @@
 package com.example.mag.service;
 
 import com.example.mag.entity.Equipment;
+import com.example.mag.entity.User;
 import com.example.mag.repository.EquipmentRepository;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EquipmentService {
@@ -22,7 +24,7 @@ public class EquipmentService {
         return equipmentRepository.save(equipment);
     }
 
-    public Equipment getEquipmentByID(Long id) {
+    public Equipment getEquipmentById(Long id) {
         return equipmentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Equipment " + id + " does not exist"));
     }
@@ -54,13 +56,21 @@ public class EquipmentService {
         return equipmentToUpdate;
     }
 
-    public Equipment addUserToEquipment(long userId, Long equipmentId){
-        Equipment equipment = equipmentRepository.findById(equipmentId)
-                .orElseThrow(() -> new EntityNotFoundException("Equipment " + equipmentId + " does not exist"));
-        if (userService.getUserByID(userId) != null){
-            equipment.setUserId(userService.getUserByID(userId));
+    public Equipment addUserToEquipment(Long userId, Long equipmentId) {
+        Equipment equipment = getEquipmentById(equipmentId);
+        User user = userService.getUserById(userId);
+        if (user != null) {
+            equipment.setUserId(user);
         }
-        return equipment;
+        return saveEquipment(equipment);
+    }
+
+    public List<Equipment> getUserEquipment(Long idUser) {
+        return getAllEquipment().stream()
+                .filter(equipment -> equipment.getUserId() != null)
+                .filter(equipment -> equipment.getUserId()
+                        .equals(userService.getUserById(idUser)))
+                .collect(Collectors.toList());
     }
 
     public void deleteById(Long id) {

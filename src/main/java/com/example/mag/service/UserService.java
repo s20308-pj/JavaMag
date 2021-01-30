@@ -20,7 +20,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User getUserByID(Long id) {
+    public User getUserById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User " + id + " does not exist"));
     }
@@ -57,7 +57,7 @@ public class UserService {
     }
 
     public void deleteUserById(Long id) {
-        User user = getUserByID(id);
+        User user = getUserById(id);
         userRepository.delete(user);
     }
 }

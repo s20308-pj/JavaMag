@@ -30,7 +30,7 @@ public class EquipmentController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Equipment> getEquipment(@PathVariable Long id) {
-        return ResponseEntity.ok(equipmentService.getEquipmentByID(id));
+        return ResponseEntity.ok(equipmentService.getEquipmentById(id));
     }
 
     @GetMapping("/getAll")
@@ -48,15 +48,19 @@ public class EquipmentController {
         return ResponseEntity.ok(equipmentService.updateEquipmentById(id, equipment));
     }
 
-    @PutMapping("/assign/{userId}/{equipmentId}")
-    public ResponseEntity<Equipment> addUserToEquipment(@PathVariable Long userId, @PathVariable Long equipmentId){
-        System.out.println(userId+" "+equipmentId);
-        return ResponseEntity.ok(equipmentService.addUserToEquipment(userId,equipmentId));
-    }
-
 
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
         equipmentService.deleteById(id);
+    }
+
+    @PutMapping("/assign/{userId}/{equipmentId}")
+    public ResponseEntity<Equipment> addUserToEquipment(@PathVariable Long userId, @PathVariable Long equipmentId){
+        return ResponseEntity.ok(equipmentService.addUserToEquipment(userId,equipmentId));
+    }
+
+    @GetMapping("showEquipment/{userId}")
+    public ResponseEntity<List<Equipment>> getUserEquipment(@PathVariable Long userId){
+        return ResponseEntity.ok(equipmentService.getUserEquipment(userId));
     }
 }

@@ -7,16 +7,21 @@ import javax.persistence.Id;
 
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 @Entity
+@Table(name = "equipment")
 public class Equipment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank
     private String name;
     private String serialNumber;
     private String imgPatch;
+    @NotBlank
     private String barCode;
     @ManyToOne
     @JoinColumn(name = "user_id")
