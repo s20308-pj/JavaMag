@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface EquipmentRepository extends JpaRepository<Equipment, Long> {
 
-    Optional<Equipment> findByBarCode(String tagNumber);
+    Optional<Equipment> findByBarCode(String barCode);
 }

@@ -38,16 +38,15 @@ public class EquipmentController {
         return ResponseEntity.ok(equipmentService.getAllEquipment());
     }
 
-    @GetMapping("/getByBarCode/{tagNumber}")
-    public ResponseEntity<Equipment> getByBarCode(@PathVariable String tagNumber) {
-        return ResponseEntity.ok(equipmentService.getEquipmentByBarCode(tagNumber));
+    @GetMapping("/getByBarCode/{barCode}")
+    public ResponseEntity<Equipment> getByBarCode(@PathVariable String barCode) {
+        return ResponseEntity.ok(equipmentService.getEquipmentByBarCode(barCode));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Equipment> updateById(@RequestBody Equipment equipment, @PathVariable Long id){
         return ResponseEntity.ok(equipmentService.updateEquipmentById(id, equipment));
     }
-
 
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {

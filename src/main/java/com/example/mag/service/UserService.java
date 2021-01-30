@@ -30,9 +30,9 @@ public class UserService {
     }
 
 
-    public List<User> getUserByName(String nameFrag) {
+    public List<User> getUserByName(String nameFragmentary) {
         return getAllUser().stream()
-                .filter(user -> user.getLastName().toLowerCase().contains(nameFrag.toLowerCase()))
+                .filter(user -> user.getLastName().toLowerCase().contains(nameFragmentary.toLowerCase()))
                 .collect(Collectors.toList());
     }
 
@@ -57,7 +57,6 @@ public class UserService {
     }
 
     public void deleteUserById(Long id) {
-        User user = getUserById(id);
-        userRepository.delete(user);
+        userRepository.deleteById(id);
     }
 }

@@ -39,6 +39,7 @@ public class StorageService {
     public void deleteStorage(Long id){
         storageRepository.deleteById(id);
     }
+
     public Storage addUserToStorage(Long userId, Long storageId){
         Storage storage = getStorageById(storageId);
         User user = userService.getUserById(userId);

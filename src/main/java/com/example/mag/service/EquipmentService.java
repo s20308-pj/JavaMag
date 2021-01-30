@@ -7,7 +7,7 @@ import com.example.mag.repository.EquipmentRepository;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,9 +37,9 @@ public class EquipmentService {
         return equipmentRepository.findAll();
     }
 
-    public Equipment getEquipmentByBarCode(String tagNumber) {
-        return equipmentRepository.findByBarCode(tagNumber)
-                .orElseThrow(() -> new EntityNotFoundException("Equipment " + tagNumber + " does not exist"));
+    public Equipment getEquipmentByBarCode(String barCode) {
+        return equipmentRepository.findByBarCode(barCode)
+                .orElseThrow(() -> new EntityNotFoundException("Equipment " + barCode + " does not exist"));
     }
 
     public Equipment updateEquipmentById(Long id, Equipment equipment) {
@@ -84,7 +84,7 @@ public class EquipmentService {
         Equipment equipment = getEquipmentById(equipmentId);
         Storage storage = storageService.getStorageById(storageId);
         if (storage != null) {
-            storage.setTime(LocalDateTime.now());
+            storage.setTime(LocalDate.now());
             storageService.saveStorage(storage);
             equipment.setStorageId(storage);
         }

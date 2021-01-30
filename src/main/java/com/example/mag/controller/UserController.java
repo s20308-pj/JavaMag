@@ -39,9 +39,9 @@ public class UserController {
         return ResponseEntity.ok(userService.getAllUser());
     }
 
-    @GetMapping("/frag/{nameFragment}")
-    public ResponseEntity<List<User>> getByFragment(@PathVariable String nameFragment){
-        return ResponseEntity.ok(userService.getUserByName(nameFragment));
+    @GetMapping("/fragmentaryName/{nameFragmentary}")
+    public ResponseEntity<List<User>> getByFragment(@PathVariable String nameFragmentary){
+        return ResponseEntity.ok(userService.getUserByName(nameFragmentary));
     }
 
     @GetMapping("/getByNumber/{userNumber}")
