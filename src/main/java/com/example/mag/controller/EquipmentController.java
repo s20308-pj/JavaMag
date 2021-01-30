@@ -54,7 +54,7 @@ public class EquipmentController {
         equipmentService.deleteById(id);
     }
 
-    @PutMapping("/assign/{userId}/{equipmentId}")
+    @PutMapping("/assignUser/{userId}/{equipmentId}")
     public ResponseEntity<Equipment> addUserToEquipment(@PathVariable Long userId, @PathVariable Long equipmentId){
         return ResponseEntity.ok(equipmentService.addUserToEquipment(userId,equipmentId));
     }
@@ -62,5 +62,9 @@ public class EquipmentController {
     @GetMapping("showEquipment/{userId}")
     public ResponseEntity<List<Equipment>> getUserEquipment(@PathVariable Long userId){
         return ResponseEntity.ok(equipmentService.getUserEquipment(userId));
+    }
+    @PutMapping("/assignStorage/{storageId}/{equipmentId}")
+    public ResponseEntity<Equipment> addStorageToEquipment(@PathVariable Long storageId,@PathVariable Long equipmentId){
+        return ResponseEntity.ok(equipmentService.addStorageToEquipment(storageId,equipmentId));
     }
 }

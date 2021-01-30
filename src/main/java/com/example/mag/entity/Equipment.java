@@ -26,6 +26,9 @@ public class Equipment {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User userId;
+    @ManyToOne
+    @JoinColumn(name = "storage_id")
+    private Storage storageId;
 
     public Equipment() {
     }
@@ -86,21 +89,30 @@ public class Equipment {
         this.userId = userId;
     }
 
+    public Storage getStorageId() {
+        return storageId;
+    }
+
+    public void setStorageId(Storage storage) {
+        this.storageId = storage;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Equipment equipment = (Equipment) o;
-        return Objects.equals(id, equipment.id) &&
-                Objects.equals(name, equipment.name) &&
-                Objects.equals(serialNumber, equipment.serialNumber) &&
-                Objects.equals(imgPatch, equipment.imgPatch) &&
-                Objects.equals(barCode, equipment.barCode) &&
-                Objects.equals(userId, equipment.userId);
+        return Objects.equals(id, equipment.id)
+                && Objects.equals(name, equipment.name)
+                && Objects.equals(serialNumber, equipment.serialNumber)
+                && Objects.equals(imgPatch, equipment.imgPatch)
+                && Objects.equals(barCode, equipment.barCode)
+                && Objects.equals(userId, equipment.userId)
+                && Objects.equals(storageId, equipment.storageId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, serialNumber, imgPatch, barCode, userId);
+        return Objects.hash(id, name, serialNumber, imgPatch, barCode, userId, storageId);
     }
 }

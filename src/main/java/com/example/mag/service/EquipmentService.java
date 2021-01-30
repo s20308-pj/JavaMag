@@ -1,11 +1,13 @@
 package com.example.mag.service;
 
 import com.example.mag.entity.Equipment;
+import com.example.mag.entity.Storage;
 import com.example.mag.entity.User;
 import com.example.mag.repository.EquipmentRepository;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,11 +15,13 @@ import java.util.stream.Collectors;
 public class EquipmentService {
     private final EquipmentRepository equipmentRepository;
     private final UserService userService;
+    private final StorageService storageService;
 
 
-    public EquipmentService(EquipmentRepository equipmentRepository, UserService userService) {
+    public EquipmentService(EquipmentRepository equipmentRepository, UserService userService, StorageService storageService) {
         this.equipmentRepository = equipmentRepository;
         this.userService = userService;
+        this.storageService = storageService;
     }
 
     public Equipment saveEquipment(Equipment equipment) {
@@ -39,8 +43,7 @@ public class EquipmentService {
     }
 
     public Equipment updateEquipmentById(Long id, Equipment equipment) {
-        Equipment equipmentToUpdate = equipmentRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Equipment " + id + " does not exist"));
+        Equipment equipmentToUpdate = getEquipmentById(id);
         if (equipment.getImgPatch() != null) {
             equipmentToUpdate.setImgPatch(equipment.getImgPatch());
         }
@@ -54,6 +57,10 @@ public class EquipmentService {
             equipmentToUpdate.setBarCode(equipment.getBarCode());
         }
         return equipmentToUpdate;
+    }
+
+    public void deleteById(Long id) {
+        equipmentRepository.deleteById(id);
     }
 
     public Equipment addUserToEquipment(Long userId, Long equipmentId) {
@@ -73,8 +80,15 @@ public class EquipmentService {
                 .collect(Collectors.toList());
     }
 
-    public void deleteById(Long id) {
-        equipmentRepository.deleteById(id);
+    public Equipment addStorageToEquipment(Long storageId, Long equipmentId) {
+        Equipment equipment = getEquipmentById(equipmentId);
+        Storage storage = storageService.getStorageById(storageId);
+        if (storage != null) {
+            storage.setTime(LocalDateTime.now());
+            storageService.saveStorage(storage);
+            equipment.setStorageId(storage);
+        }
+        return saveEquipment(equipment);
     }
 
 }
