@@ -1,6 +1,6 @@
 package com.example.mag.repository;
 
-import com.example.mag.entity.User;
+import com.example.mag.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,8 +1,8 @@
 package com.example.mag.service;
 
-import com.example.mag.entity.Equipment;
-import com.example.mag.entity.Storage;
-import com.example.mag.entity.User;
+import com.example.mag.model.Equipment;
+import com.example.mag.model.Storage;
+import com.example.mag.model.User;
 import com.example.mag.repository.EquipmentRepository;
 import org.springframework.stereotype.Service;
 
@@ -56,7 +56,7 @@ public class EquipmentService {
         if (equipment.getBarCode() != null) {
             equipmentToUpdate.setBarCode(equipment.getBarCode());
         }
-        return equipmentToUpdate;
+        return saveEquipment(equipmentToUpdate);
     }
 
     public void deleteById(Long id) {

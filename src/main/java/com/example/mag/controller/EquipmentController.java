@@ -1,6 +1,6 @@
 package com.example.mag.controller;
 
-import com.example.mag.entity.Equipment;
+import com.example.mag.model.Equipment;
 import com.example.mag.service.EquipmentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,7 +29,7 @@ public class EquipmentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Equipment> getEquipment(@PathVariable Long id) {
+    public ResponseEntity<Equipment> getEquipment(@PathVariable Long id)  {
         return ResponseEntity.ok(equipmentService.getEquipmentById(id));
     }
 
@@ -49,8 +49,9 @@ public class EquipmentController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         equipmentService.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/assignUser/{userId}/{equipmentId}")

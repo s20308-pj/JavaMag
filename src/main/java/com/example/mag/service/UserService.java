@@ -1,6 +1,6 @@
 package com.example.mag.service;
 
-import com.example.mag.entity.User;
+import com.example.mag.model.User;
 import com.example.mag.repository.UserRepository;
 import org.springframework.stereotype.Service;
 

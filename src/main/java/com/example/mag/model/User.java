@@ -1,4 +1,4 @@
-package com.example.mag.entity;
+package com.example.mag.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,6 +27,12 @@ public class User {
 
     public User(Long id, String firstName, String lastName, Integer userNumber) {
         this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userNumber = userNumber;
+    }
+
+    public User(String firstName, String lastName, Integer userNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userNumber = userNumber;

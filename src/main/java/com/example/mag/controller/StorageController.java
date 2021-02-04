@@ -1,6 +1,6 @@
 package com.example.mag.controller;
 
-import com.example.mag.entity.Storage;
+import com.example.mag.model.Storage;
 import com.example.mag.service.StorageService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -44,8 +44,9 @@ public class StorageController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteStorage(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteStorage(@PathVariable Long id) {
         storageService.deleteStorage(id);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/assignUser/{userId}/{storageId}")

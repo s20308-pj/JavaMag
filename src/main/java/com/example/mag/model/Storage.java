@@ -1,4 +1,4 @@
-package com.example.mag.entity;
+package com.example.mag.model;
 
 
 import javax.persistence.Entity;
@@ -28,6 +28,10 @@ public class Storage {
 
     public Storage(Long id, String name) {
         this.id = id;
+        this.name = name;
+    }
+
+    public Storage(String name) {
         this.name = name;
     }
 

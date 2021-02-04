@@ -1,7 +1,7 @@
 package com.example.mag.service;
 
-import com.example.mag.entity.Storage;
-import com.example.mag.entity.User;
+import com.example.mag.model.Storage;
+import com.example.mag.model.User;
 import com.example.mag.repository.StorageRepository;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +26,11 @@ public class StorageService {
         return storageRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Storage " + id + " does not exist"));
     }
+
     public List<Storage> getAllStorage(){
         return storageRepository.findAll();
     }
+
     public Storage updateStorageById(Long id, Storage storage){
         Storage storageToUpdate = getStorageById(id);
         if (storage.getName() !=null) {
@@ -36,6 +38,7 @@ public class StorageService {
         }
         return storageToUpdate;
     }
+
     public void deleteStorage(Long id){
         storageRepository.deleteById(id);
     }

@@ -1,6 +1,6 @@
 package com.example.mag.controller;
 
-import com.example.mag.entity.User;
+import com.example.mag.model.User;
 import com.example.mag.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -54,7 +54,8 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUserById(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUserById(@PathVariable Long id) {
         userService.deleteUserById(id);
+        return ResponseEntity.ok().build();
     }
 }

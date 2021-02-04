@@ -1,4 +1,4 @@
-package com.example.mag.entity;
+package com.example.mag.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,6 +35,12 @@ public class Equipment {
 
     public Equipment(Long id, String name, String serialNumber, String imgPatch, String barCode) {
         this.id = id;
+        this.name = name;
+        this.serialNumber = serialNumber;
+        this.imgPatch = imgPatch;
+        this.barCode = barCode;
+    }
+    public Equipment(String name, String serialNumber, String imgPatch, String barCode) {
         this.name = name;
         this.serialNumber = serialNumber;
         this.imgPatch = imgPatch;
