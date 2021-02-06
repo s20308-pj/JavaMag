@@ -6,10 +6,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class CanNotBeEmptyExceptionHandler {
-
-    @ExceptionHandler(CanNotBeEmptyException.class)
-    public ResponseEntity<Object> canNotBeEmptyHandleRuntimeException(CanNotBeEmptyException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
+public class EntityExistExceptionHandler {
+    @ExceptionHandler(EntityExistException.class)
+    public ResponseEntity<Object> existHandlerRuntimeException(EntityExistException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_ACCEPTABLE);
     }
 }

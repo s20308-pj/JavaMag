@@ -1,6 +1,7 @@
 package com.example.mag.service;
 
 import com.example.mag.exception.CanNotBeEmptyException;
+import com.example.mag.exception.EntityExistException;
 import com.example.mag.exception.EquipmentNotFoundException;
 import com.example.mag.model.Equipment;
 import com.example.mag.model.Storage;
@@ -32,6 +33,10 @@ public class EquipmentService {
         if (equipment.getBarCode() == null) {
             throw new CanNotBeEmptyException("name");
         }
+//        List<Equipment> equipmentList = getAllEquipment().stream().filter(existEquipment -> existEquipment.getBarCode().equals(equipment.getBarCode())).collect(Collectors.toList());
+//        if (!equipmentList.isEmpty()){
+//            throw new EntityExistException("BarCode ");
+//        }
         return equipmentRepository.save(equipment);
     }
 

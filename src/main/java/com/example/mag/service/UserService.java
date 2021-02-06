@@ -1,6 +1,7 @@
 package com.example.mag.service;
 
 import com.example.mag.exception.CanNotBeEmptyException;
+import com.example.mag.exception.EntityExistException;
 import com.example.mag.exception.UserNotFoundException;
 import com.example.mag.model.User;
 import com.example.mag.repository.UserRepository;
@@ -26,6 +27,10 @@ public class UserService {
         }
         if (user.getUserNumber() == null) {
             throw new CanNotBeEmptyException("UserNumber");
+        }
+        List<User> userList = getAllUser().stream().filter(existUser->existUser.getUserNumber().equals(user.getUserNumber())).collect(Collectors.toList());
+        if (!userList.isEmpty()){
+            throw new EntityExistException("User Number ");
         }
         return userRepository.save(user);
     }

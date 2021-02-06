@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class UserNotFoundException extends RuntimeException {
 
     public UserNotFoundException(String message, Long id) {
-        super(message + " with " + id + " not found");
+        super(message + "with id: " + id + " not found");
     }
     public UserNotFoundException(String message) {
         super(message + " not found");
