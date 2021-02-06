@@ -1,11 +1,12 @@
 package com.example.mag.service;
 
+import com.example.mag.exception.CanNotBeEmptyException;
+import com.example.mag.exception.StorageNotFoundException;
 import com.example.mag.model.Storage;
 import com.example.mag.model.User;
 import com.example.mag.repository.StorageRepository;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -18,37 +19,40 @@ public class StorageService {
         this.userService = userService;
     }
 
-    public Storage saveStorage(Storage storage) {
+    public Storage save(Storage storage) {
+        if (storage.getName() == null) {
+            throw new CanNotBeEmptyException("name");
+        }
         return storageRepository.save(storage);
     }
 
     public Storage getStorageById(Long id) {
         return storageRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Storage " + id + " does not exist"));
+                .orElseThrow(() -> new StorageNotFoundException("storage", id));
     }
 
-    public List<Storage> getAllStorage(){
+    public List<Storage> getAllStorage() {
         return storageRepository.findAll();
     }
 
-    public Storage updateStorageById(Long id, Storage storage){
+    public Storage updateStorageById(Long id, Storage storage) {
         Storage storageToUpdate = getStorageById(id);
-        if (storage.getName() !=null) {
+        if (storage.getName() != null) {
             storageToUpdate.setName(storage.getName());
         }
-        return storageToUpdate;
+        return save(storageToUpdate);
     }
 
-    public void deleteStorage(Long id){
+    public void deleteStorage(Long id) {
         storageRepository.deleteById(id);
     }
 
-    public Storage addUserToStorage(Long userId, Long storageId){
+    public Storage addUserToStorage(Long userId, Long storageId) {
         Storage storage = getStorageById(storageId);
         User user = userService.getUserById(userId);
-        if(user!=null){
+        if (user != null) {
             storage.setUserId(user);
         }
-        return saveStorage(storage);
+        return save(storage);
     }
 }

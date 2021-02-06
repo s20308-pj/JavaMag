@@ -1,12 +1,13 @@
 package com.example.mag.service;
 
+import com.example.mag.exception.CanNotBeEmptyException;
+import com.example.mag.exception.EquipmentNotFoundException;
 import com.example.mag.model.Equipment;
 import com.example.mag.model.Storage;
 import com.example.mag.model.User;
 import com.example.mag.repository.EquipmentRepository;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,13 +25,19 @@ public class EquipmentService {
         this.storageService = storageService;
     }
 
-    public Equipment saveEquipment(Equipment equipment) {
+    public Equipment save(Equipment equipment) {
+        if (equipment.getName() == null) {
+            throw new CanNotBeEmptyException("name");
+        }
+        if (equipment.getBarCode() == null) {
+            throw new CanNotBeEmptyException("name");
+        }
         return equipmentRepository.save(equipment);
     }
 
     public Equipment getEquipmentById(Long id) {
         return equipmentRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Equipment " + id + " does not exist"));
+                .orElseThrow(() -> new EquipmentNotFoundException("equipment ", id));
     }
 
     public List<Equipment> getAllEquipment() {
@@ -39,7 +46,7 @@ public class EquipmentService {
 
     public Equipment getEquipmentByBarCode(String barCode) {
         return equipmentRepository.findByBarCode(barCode)
-                .orElseThrow(() -> new EntityNotFoundException("Equipment " + barCode + " does not exist"));
+                .orElseThrow(() -> new EquipmentNotFoundException(barCode));
     }
 
     public Equipment updateEquipmentById(Long id, Equipment equipment) {
@@ -56,7 +63,7 @@ public class EquipmentService {
         if (equipment.getBarCode() != null) {
             equipmentToUpdate.setBarCode(equipment.getBarCode());
         }
-        return saveEquipment(equipmentToUpdate);
+        return save(equipmentToUpdate);
     }
 
     public void deleteById(Long id) {
@@ -69,7 +76,7 @@ public class EquipmentService {
         if (user != null) {
             equipment.setUserId(user);
         }
-        return saveEquipment(equipment);
+        return save(equipment);
     }
 
     public List<Equipment> getUserEquipment(Long idUser) {
@@ -85,10 +92,10 @@ public class EquipmentService {
         Storage storage = storageService.getStorageById(storageId);
         if (storage != null) {
             storage.setTime(LocalDate.now());
-            storageService.saveStorage(storage);
+            storageService.save(storage);
             equipment.setStorageId(storage);
         }
-        return saveEquipment(equipment);
+        return save(equipment);
     }
 
 }

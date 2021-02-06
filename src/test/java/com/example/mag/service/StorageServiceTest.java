@@ -34,7 +34,7 @@ class StorageServiceTest {
     void getStorageById() {
         when(storageRepository.findById(1L)).thenReturn(Optional.of(new Storage()));
         Optional<Storage> storage = storageRepository.findById(1L);
-        assertThat(storage).isEmpty();
+        assertThat(storage).isNotEmpty();
     }
 
     @Test

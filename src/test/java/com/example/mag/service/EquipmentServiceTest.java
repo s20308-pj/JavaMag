@@ -63,15 +63,4 @@ class EquipmentServiceTest {
         verify(equipmentRepository, times(2)).deleteById(1L);
     }
 
-    @Test
-    void addUserToEquipment() {
-    }
-
-    @Test
-    void getUserEquipment() {
-    }
-
-    @Test
-    void addStorageToEquipment() {
-    }
 }

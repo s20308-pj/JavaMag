@@ -25,7 +25,7 @@ public class StorageController {
 
     @PostMapping("/save")
     public ResponseEntity<Storage> addNewStorage(@RequestBody Storage storage) {
-        return ResponseEntity.ok(storageService.saveStorage(storage));
+        return ResponseEntity.ok(storageService.save(storage));
     }
 
     @GetMapping("/{id}")

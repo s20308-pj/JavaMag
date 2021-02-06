@@ -29,7 +29,6 @@ class UserServiceTest {
         assertThat(user.getFirstName()).isEqualTo("Adam");
         assertThat(user.getLastName()).isEqualTo("Miałczyński");
         assertThat(user.getUserNumber()).isEqualTo(213);
-
     }
 
     @Test
@@ -48,14 +47,6 @@ class UserServiceTest {
                 )));
         List<User> userList = userRepository.findAll();
         assertThat(userList).hasSize(3);
-    }
-
-    @Test
-    void getUserByName() {
-    }
-
-    @Test
-    void getUserByUserNumber() {
     }
 
     @Test

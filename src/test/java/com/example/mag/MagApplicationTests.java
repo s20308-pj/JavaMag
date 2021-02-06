@@ -8,6 +8,7 @@ class MagApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }
